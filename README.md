@@ -79,3 +79,13 @@ This project is a Book Recommendation System built using React. It allows users 
 - TypeScript: A typed superset of JavaScript that compiles to plain JavaScript.
 - Tailwind CSS: A utility-first CSS framework for building custom designs.
 
+<img width="910" alt="image" src="https://github.com/user-attachments/assets/5f1605cb-2e3f-45fb-b971-451798654eb6">
+<img width="891" alt="image" src="https://github.com/user-attachments/assets/c3425da1-c6c6-4529-813e-ff2606b7b417">
+<img width="900" alt="image" src="https://github.com/user-attachments/assets/2d7af0d2-903e-4c74-a308-dcd0c35139a2">
+<img width="895" alt="image" src="https://github.com/user-attachments/assets/361953aa-eeb3-4bcf-81bc-f169c7af090d">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/435e7b67-0015-4966-9c3b-783d424f04b3">
+
+
+
+
+
