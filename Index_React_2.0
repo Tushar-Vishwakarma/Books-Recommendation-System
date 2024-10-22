@@ -1,0 +1,104 @@
+import React, { useState } from 'react';
+
+interface Book {
+  title: string;
+  author: string;
+  genre: string;
+  description: string;
+  image: string;
+}
+
+const books: Book[] = [
+  { title: 'To Kill a Mockingbird', author: 'Harper Lee', genre: 'Fiction', description: 'A classic novel about racial injustice and childhood innocence.', image: 'https://images-na.ssl-images-amazon.com/images/I/51j8ZR2N1FL._SX324_BO1,204,203,200_.jpg' },
+  { title: '1984', author: 'George Orwell', genre: 'Dystopian', description: 'A dystopian novel about government surveillance and censorship.', image: 'https://images-na.ssl-images-amazon.com/images/I/41y6w8n1V-L._SX324_BO1,204,203,200_.jpg' },
+  { title: 'Pride and Prejudice', author: 'Jane Austen', genre: 'Romance', description: 'A classic romance novel about love and social class.', image: 'https://images-na.ssl-images-amazon.com/images/I/51T8rkl1nFL._SX324_BO1,204,203,200_.jpg' },
+  { title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', genre: 'Fiction', description: 'A novel about the American Dream and the Roaring Twenties.', image: 'https://images-na.ssl-images-amazon.com/images/I/51M8rkl1nFL._SX324_BO1,204,203,200_.jpg' },
+  { title: 'The Hitchhiker\'s Guide to the Galaxy', author: 'Douglas Adams', genre: 'Science Fiction', description: 'A comedic science fiction series about space travel and alien encounters.', image: 'https://images-na.ssl-images-amazon.com/images/I/51y6w8n1V-L._SX324_BO1,204,203,200_.jpg' },
+];
+
+const BookRecommendationSystem = () => {
+  const [selectedGenre, setSelectedGenre] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [recommendedBooks, setRecommendedBooks] = useState<Book[]>([]);
+
+  const handleGenreChange = (genre: string) => {
+    setSelectedGenre(genre);
+    const recommended = books.filter((book) => book.genre === genre && book.title.toLowerCase().includes(searchTerm.toLowerCase()));
+    setRecommendedBooks(recommended);
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+    const recommended = books.filter((book) => book.title.toLowerCase().includes(e.target.value.toLowerCase()) && (selectedGenre === '' || book.genre === selectedGenre));
+    setRecommendedBooks(recommended);
+  };
+
+  return (
+    <div className="max-w-4xl mx-auto p-4 md:p-6 lg:p-8">
+      <h1 className="text-3xl font-bold text-gray-900">AI Based Book Recommendation System</h1>
+      <div className="flex flex-wrap justify-center mt-6">
+        <input
+          type="search"
+          value={searchTerm}
+          onChange={handleSearch}
+          placeholder="Search for a book"
+          className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 pl-10 text-lg text-gray-700 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+        />
+      </div>
+      <div className="flex flex-wrap justify-center mt-6">
+        <button
+          className={`bg-gray-200 hover:bg-gray-300 rounded-lg p-4 mx-2 ${selectedGenre === 'Fiction' ? 'bg-blue-500 text-white' : ''}`}
+          onClick={() => handleGenreChange('Fiction')}
+        >
+          Fiction
+        </button>
+        <button
+          className={`bg-gray-200 hover:bg-gray-300 rounded-lg p-4 mx-2 ${selectedGenre === 'Dystopian' ? 'bg-blue-500 text-white' : ''}`}
+          onClick={() => handleGenreChange('Dystopian')}
+        >
+          Dystopian
+        </button>
+        <button
+          className={`bg-gray-200 hover:bg-gray-300 rounded-lg p-4 mx-2 ${selectedGenre === 'Romance' ? 'bg-blue-500 text-white' : ''}`}
+          onClick={() => handleGenreChange('Romance')}
+        >
+          Romance
+        </button>
+        <button
+          className={`bg-gray-200 hover:bg-gray-300 rounded-lg p-4 mx-2 ${selectedGenre === 'Science Fiction' ? 'bg-blue-500 text-white' : ''}`}
+          onClick={() => handleGenreChange('Science Fiction')}
+        >
+          Science Fiction
+        </button>
+        <button
+          className={`bg-gray-200 hover:bg-gray-300 rounded-lg p-4 mx-2 ${selectedGenre === '' ? 'bg-blue-500 text-white' : ''}`}
+          onClick={() => {
+            setSelectedGenre('');
+            setRecommendedBooks(books.filter((book) => book.title.toLowerCase().includes(searchTerm.toLowerCase())));
+          }}
+        >
+          All
+        </button>
+      </div>
+      <div className="mt-6">
+        {recommendedBooks.length > 0 ? (
+          <h2 className="text-2xl font-bold text-gray-900">Recommended Books</h2>
+        ) : (
+          <h2 className="text-2xl font-bold text-gray-900">No books recommended</h2>
+        )}
+        <ul className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {recommendedBooks.map((book) => (
+            <li key={book.title} className="bg-gray-100 p-4 rounded-lg mb-4">
+              <img src={book.image} alt={book.title} className="w-full h-64 object-cover mb-4" />
+              <h3 className="text-lg font-bold text-gray-900">{book.title}</h3>
+              <p className="text-gray-600">{book.author}</p>
+              <p className="text-gray-600">{book.description}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default BookRecommendationSystem;
