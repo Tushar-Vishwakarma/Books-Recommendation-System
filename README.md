@@ -44,6 +44,9 @@ This project is a Book Recommendation System built using React. It allows users 
 - With React code
 - NOT Index
 
+**Update**
+- Index_React and Index_React_2.0 are almost same with only difference that in Index_React_2.0 you'll get an option to add books images as well
+
 **Features**
 - Genre-Based Recommendations: Users can filter books by selecting a genre (Fiction, Dystopian, Romance).
 - Search Functionality: Users can search for books by entering a title in the search box.
