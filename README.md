@@ -8,9 +8,6 @@ This is a fun web app that helps users find book recommendations based on their 
 - User-Friendly Interface: Simple and intuitive design for easy navigation.
 - Start Over Option: Quickly reset and try different selections.
 
-<img width="824" alt="image" src="https://github.com/user-attachments/assets/1614844e-bf59-4648-a177-739aa5522209">
-
-
 **Technologies Used**
 - HTML
 - CSS
@@ -25,6 +22,9 @@ This is a fun web app that helps users find book recommendations based on their 
 
 **Contributing**
 - Contributions are welcome! Feel free to suggest improvements or new features.
+
+
+<img width="824" alt="image" src="https://github.com/user-attachments/assets/1614844e-bf59-4648-a177-739aa5522209">
 
 <img width="820" alt="image" src="https://github.com/user-attachments/assets/4c138c7f-bf9b-4fbf-b08d-49e1ed8a2179">
 
