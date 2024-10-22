@@ -1,88 +1,99 @@
 import React, { useState } from 'react';
 
 interface Book {
-  id: number;
   title: string;
   author: string;
   genre: string;
-  rating: number;
+  description: string;
 }
 
 const books: Book[] = [
-  { id: 1, title: 'To Kill a Mockingbird', author: 'Harper Lee', genre: 'Fiction', rating: 4.5 },
-  { id: 2, title: '1984', author: 'George Orwell', genre: 'Dystopian', rating: 4.3 },
-  { id: 3, title: 'Pride and Prejudice', author: 'Jane Austen', genre: 'Romance', rating: 4.2 },
-  { id: 4, title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', genre: 'Fiction', rating: 4.1 },
-  { id: 5, title: 'The Catcher in the Rye', author: 'J.D. Salinger', genre: 'Fiction', rating: 4.0 },
+  { title: 'To Kill a Mockingbird', author: 'Harper Lee', genre: 'Fiction', description: 'A classic novel about racial injustice and childhood innocence.' },
+  { title: '1984', author: 'George Orwell', genre: 'Dystopian', description: 'A dystopian novel about government surveillance and censorship.' },
+  { title: 'Pride and Prejudice', author: 'Jane Austen', genre: 'Romance', description: 'A classic romance novel about love and social class.' },
+  { title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', genre: 'Fiction', description: 'A novel about the American Dream and the Roaring Twenties.' },
+  { title: 'The Hitchhiker\'s Guide to the Galaxy', author: 'Douglas Adams', genre: 'Science Fiction', description: 'A comedic science fiction series about space travel and alien encounters.' },
 ];
 
 const BookRecommendationSystem = () => {
   const [selectedGenre, setSelectedGenre] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
   const [recommendedBooks, setRecommendedBooks] = useState<Book[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
 
   const handleGenreChange = (genre: string) => {
     setSelectedGenre(genre);
-    const filteredBooks = books.filter((book) => book.genre === genre);
-    setRecommendedBooks(filteredBooks);
+    const recommended = books.filter((book) => book.genre === genre && book.title.toLowerCase().includes(searchTerm.toLowerCase()));
+    setRecommendedBooks(recommended);
   };
 
-  const handleSearch = () => {
-    const searchedBooks = books.filter((book) => book.title.toLowerCase().includes(searchQuery.toLowerCase()));
-    setRecommendedBooks(searchedBooks);
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+    const recommended = books.filter((book) => book.title.toLowerCase().includes(e.target.value.toLowerCase()) && (selectedGenre === '' || book.genre === selectedGenre));
+    setRecommendedBooks(recommended);
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">AI Based Book Recommendation System</h1>
-      <div className="flex flex-wrap justify-between mb-4">
-        <div className="flex flex-wrap mb-2">
-          <button
-            className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${selectedGenre === 'Fiction' ? 'bg-blue-700' : ''}`}
-            onClick={() => handleGenreChange('Fiction')}
-          >
-            Fiction
-          </button>
-          <button
-            className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${selectedGenre === 'Dystopian' ? 'bg-blue-700' : ''}`}
-            onClick={() => handleGenreChange('Dystopian')}
-          >
-            Dystopian
-          </button>
-          <button
-            className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${selectedGenre === 'Romance' ? 'bg-blue-700' : ''}`}
-            onClick={() => handleGenreChange('Romance')}
-          >
-            Romance
-          </button>
-        </div>
-        <div className="flex flex-wrap mb-2">
-          <input
-            type="text"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Search for a book"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={handleSearch}
-          >
-            Search
-          </button>
-        </div>
+    <div className="max-w-4xl mx-auto p-4 md:p-6 lg:p-8">
+      <h1 className="text-3xl font-bold text-gray-900">AI Based Book Recommendation System</h1>
+      <div className="flex flex-wrap justify-center mt-6">
+        <input
+          type="search"
+          value={searchTerm}
+          onChange={handleSearch}
+          placeholder="Search for a book"
+          className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 pl-10 text-lg text-gray-700 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+        />
       </div>
-      <div className="flex flex-wrap justify-between">
-        {recommendedBooks.map((book) => (
-          <div key={book.id} className="w-full md:w-1/2 xl:w-1/3 p-4">
-            <div className="bg-white rounded shadow-md p-4">
-              <h2 className="text-2xl font-bold mb-2">{book.title}</h2>
-              <p className="text-gray-700 text-sm mb-2">By {book.author}</p>
-              <p className="text-gray-700 text-sm mb-2">Genre: {book.genre}</p>
-              <p className="text-gray-700 text-sm mb-2">Rating: {book.rating}/5</p>
-            </div>
-          </div>
-        ))}
+      <div className="flex flex-wrap justify-center mt-6">
+        <button
+          className={`bg-gray-200 hover:bg-gray-300 rounded-lg p-4 mx-2 ${selectedGenre === 'Fiction' ? 'bg-blue-500 text-white' : ''}`}
+          onClick={() => handleGenreChange('Fiction')}
+        >
+          Fiction
+        </button>
+        <button
+          className={`bg-gray-200 hover:bg-gray-300 rounded-lg p-4 mx-2 ${selectedGenre === 'Dystopian' ? 'bg-blue-500 text-white' : ''}`}
+          onClick={() => handleGenreChange('Dystopian')}
+        >
+          Dystopian
+        </button>
+        <button
+          className={`bg-gray-200 hover:bg-gray-300 rounded-lg p-4 mx-2 ${selectedGenre === 'Romance' ? 'bg-blue-500 text-white' : ''}`}
+          onClick={() => handleGenreChange('Romance')}
+        >
+          Romance
+        </button>
+        <button
+          className={`bg-gray-200 hover:bg-gray-300 rounded-lg p-4 mx-2 ${selectedGenre === 'Science Fiction' ? 'bg-blue-500 text-white' : ''}`}
+          onClick={() => handleGenreChange('Science Fiction')}
+        >
+          Science Fiction
+        </button>
+        <button
+          className={`bg-gray-200 hover:bg-gray-300 rounded-lg p-4 mx-2 ${selectedGenre === '' ? 'bg-blue-500 text-white' : ''}`}
+          onClick={() => {
+            setSelectedGenre('');
+            setRecommendedBooks(books.filter((book) => book.title.toLowerCase().includes(searchTerm.toLowerCase())));
+          }}
+        >
+          All
+        </button>
+      </div>
+      <div className="mt-6">
+        {recommendedBooks.length > 0 ? (
+          <h2 className="text-2xl font-bold text-gray-900">Recommended Books</h2>
+        ) : (
+          <h2 className="text-2xl font-bold text-gray-900">No books recommended</h2>
+        )}
+        <ul className="mt-4">
+          {recommendedBooks.map((book) => (
+            <li key={book.title} className="bg-gray-100 p-4 rounded-lg mb-4">
+              <h3 className="text-lg font-bold text-gray-900">{book.title}</h3>
+              <p className="text-gray-600">{book.author}</p>
+              <p className="text-gray-600">{book.description}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
