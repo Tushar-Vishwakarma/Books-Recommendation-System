@@ -35,3 +35,47 @@ This is a fun web app that helps users find book recommendations based on their 
 
 <img width="820" alt="image" src="https://github.com/user-attachments/assets/52ef21e0-1606-45c6-bcd7-a4a8fd8a08f7">
 
+
+# AI-Based Book Recommendation System
+This project is a Book Recommendation System built using React. It allows users to get book recommendations based on genre selection or search for specific books by title. The app displays a list of books with their titles, authors, genres, and ratings.
+
+**File to Refer**
+- Refer Index_React
+- With React code
+- NOT Index
+
+**Features**
+- Genre-Based Recommendations: Users can filter books by selecting a genre (Fiction, Dystopian, Romance).
+- Search Functionality: Users can search for books by entering a title in the search box.
+- Responsive Design: The application is designed to be responsive and works well on various screen sizes.
+
+**Technologies Used**
+- React
+- TypeScript
+- CSS (for styling)
+- Tailwind CSS (for utility-first styling)
+
+**Installation**
+- Clone the repository.
+- Navigate to the project directory.
+- Install the required packages.
+- Start the development server.
+
+**How to Use**
+- Open the application in your web browser (usually at http://localhost:3000).
+- Click on any genre button to see books from that genre.
+- Use the search box to find specific books by title.
+- Sample Data
+- The application includes a sample dataset with several books along with their authors, genres, and ratings.
+
+**Future Improvements**
+- Integrate a more extensive book database.
+- Implement user authentication for personalized recommendations.
+- Add AI features to suggest books based on user preferences and reading history.
+- License
+
+**Acknowledgements**
+- React: JavaScript library for building user interfaces.
+- TypeScript: A typed superset of JavaScript that compiles to plain JavaScript.
+- Tailwind CSS: A utility-first CSS framework for building custom designs.
+
